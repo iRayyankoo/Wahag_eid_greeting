@@ -8,7 +8,7 @@
         body { text-align: center; font-family: Arial, sans-serif; direction: rtl; background-color: #f8f9fa; }
         header { margin: 20px 0; }
         img.logo { max-width: 150px; }
-        canvas { border: 1px solid #ccc; margin-top: 10px; max-width: 100%; }
+        canvas { border: 1px solid #ccc; margin-top: 10px; max-width: 80%; height: auto; } /* تقليل عرض الصورة */
         input, button, select { margin: 10px; padding: 10px; font-size: 16px; }
     </style>
 </head>
@@ -48,10 +48,11 @@
         function drawImage() {
             const canvas = document.getElementById("canvas");
             const ctx = canvas.getContext("2d");
-            canvas.width = img.width;
-            canvas.height = img.height;
+            const scaleFactor = 0.5; // تقليل حجم الصورة إلى 80%
+            canvas.width = img.width * scaleFactor;
+            canvas.height = img.height * scaleFactor;
             ctx.clearRect(0, 0, canvas.width, canvas.height);
-            ctx.drawImage(img, 0, 0);
+            ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
         }
 
         function changeImage() {
@@ -68,11 +69,11 @@
                 const canvas = document.getElementById("canvas");
                 const ctx = canvas.getContext("2d");
                 ctx.clearRect(0, 0, canvas.width, canvas.height);
-                ctx.drawImage(img, 0, 0);
-                ctx.font = "bold 40px Arial";
+                ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+                ctx.font = "bold 30px Arial";
                 ctx.fillStyle = "#ffffff";
                 ctx.textAlign = "center";
-                ctx.fillText(name, canvas.width / 2, canvas.height - 50);
+                ctx.fillText(name, canvas.width / 2, canvas.height - 30);
             }
         }
 
