@@ -50,6 +50,7 @@
             const ctx = canvas.getContext("2d");
             canvas.width = img.width;
             canvas.height = img.height;
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
             ctx.drawImage(img, 0, 0);
         }
 
@@ -66,6 +67,7 @@
             if (name.trim() !== "") {
                 const canvas = document.getElementById("canvas");
                 const ctx = canvas.getContext("2d");
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
                 ctx.drawImage(img, 0, 0);
                 ctx.font = "bold 40px Arial";
                 ctx.fillStyle = "#ffffff";
@@ -75,9 +77,10 @@
         }
 
         function downloadImage() {
+            const canvas = document.getElementById("canvas");
             const link = document.createElement("a");
             link.download = "eid-greeting.png";
-            link.href = document.getElementById("canvas").toDataURL();
+            link.href = canvas.toDataURL("image/png");
             link.click();
         }
     </script>
