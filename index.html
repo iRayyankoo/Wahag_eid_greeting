@@ -1,0 +1,56 @@
+ html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تهنئة عيد الفطر</title>
+    <style>
+        body { text-align: center; font-family: Arial, sans-serif; direction: rtl; }
+        canvas { border: 1px solid #ccc; margin-top: 10px; max-width: 100%; }
+        input, button { margin: 10px; padding: 10px; font-size: 16px; }
+    </style>
+</head>
+<body>
+    <h2>🎉 عيدكم مبارك 🎉</h2>
+    <p>اكتب اسمك واحصل على بطاقة التهنئة الخاصة بك!</p>
+    <input type="text" id="name" placeholder="أدخل اسمك هنا">
+    <br>
+    <button onclick="drawText()">إضافة الاسم</button>
+    <button onclick="downloadImage()">تحميل التهنئة</button>
+    <br>
+    <canvas id="canvas"></canvas>
+    
+    <script>
+        let img = new Image();
+        img.src = "https://yourwebsite.com/eid-design.jpg"; // رابط صورة التهنئة (استبدله بتصميم شركتك)
+
+        img.onload = function() {
+            const canvas = document.getElementById("canvas");
+            const ctx = canvas.getContext("2d");
+            canvas.width = img.width;
+            canvas.height = img.height;
+            ctx.drawImage(img, 0, 0);
+        };
+
+        function drawText() {
+            const name = document.getElementById("name").value;
+            if (name.trim() !== "") {
+                const canvas = document.getElementById("canvas");
+                const ctx = canvas.getContext("2d");
+                ctx.drawImage(img, 0, 0);
+                ctx.font = "40px Arial";
+                ctx.fillStyle = "white";
+                ctx.textAlign = "center";
+                ctx.fillText(name, canvas.width / 2, canvas.height - 50);
+            }
+        }
+
+        function downloadImage() {
+            const link = document.createElement("a");
+            link.download = "eid-greeting.png";
+            link.href = canvas.toDataURL();
+            link.click();
+        }
+    </script>
+</body>
+</html>
