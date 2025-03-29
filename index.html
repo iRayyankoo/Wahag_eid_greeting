@@ -58,13 +58,17 @@
     <br>
     <button id="downloadBtn" onclick="downloadImage()">تحميل التهنئة</button>
     <script>
-        let img = new Image(); img.crossOrigin = "anonymous";
         const images = {
             "design1": "https://i.postimg.cc/FKKhf2QM/Happy-Eid-V3-1.png",
             "design2": "https://i.postimg.cc/mgLsq0hP/Untitled-design-3.png"
         };
-        img.src = images["design1"]; img.onload = function() { drawImage(); }; img.onerror = function() { alert('حدث خطأ في تحميل الصورة، تأكد من صحة الرابط.'); };
+
+        let img = new Image();
+        img.crossOrigin = "anonymous";
+        img.src = images["design1"];
         img.onload = function() { drawImage(); };
+        img.onerror = function() { alert('حدث خطأ في تحميل الصورة، تأكد من صحة الرابط.'); };
+
         function drawImage() {
             const canvas = document.getElementById("canvas");
             const ctx = canvas.getContext("2d");
@@ -74,11 +78,13 @@
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
         }
+
         function changeImage() {
             const selectedDesign = document.getElementById("design").value;
             img.src = images[selectedDesign];
             img.onload = function() { drawImage(); };
         }
+
         function drawText() {
             const name = document.getElementById("nameLabel").value;
             if (name.trim() !== "") {
@@ -92,31 +98,25 @@
                 ctx.fillText(name, canvas.width / 2, canvas.height - 30);
             }
         }
+
         function downloadImage() {
-    const canvas = document.getElementById("canvas");
-    if (!canvas || !canvas.getContext) {
-        alert("حدث خطأ: لا يوجد عنصر canvas للتحميل.");
-        return;
-    }
-    const ctx = canvas.getContext("2d");
-    if (!ctx) {
-        alert("حدث خطأ: لا يمكن الحصول على السياق الرسومي للـ canvas.");
-        return;
-    }
-    const link = document.createElement("a");
-    link.download = "eid-greeting.png";
-    link.href = canvas.toDataURL("image/png");
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-}
-    const link = document.createElement("a");
-    link.download = "eid-greeting.png";
-    link.href = canvas.toDataURL("image/png");
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-}
+            const canvas = document.getElementById("canvas");
+            if (!canvas || !canvas.getContext) {
+                alert("حدث خطأ: لا يوجد عنصر canvas للتحميل.");
+                return;
+            }
+            const ctx = canvas.getContext("2d");
+            if (!ctx) {
+                alert("حدث خطأ: لا يمكن الحصول على السياق الرسومي للـ canvas.");
+                return;
+            }
+            const link = document.createElement("a");
+            link.download = "eid-greeting.png";
+            link.href = canvas.toDataURL("image/png");
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
     </script>
 </body>
 </html>
